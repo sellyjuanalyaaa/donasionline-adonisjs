@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ donasi ? 'Edit' : 'Tambah' }} Donasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="container mx-auto p-4 sm:p-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">{{ donasi ? 'Edit' : 'Tambah' }} Donasi</h1>
+
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+      <form 
+        action="{{ donasi ? route('admin.donasi.update', { id: donasi.id }) + '?_method=PUT' : route('admin.donasi.store') }}" 
+        method="POST"
+      >
+        <div class="space-y-6">
+          <div>
+            <label for="donaturId" class="block text-sm font-medium text-gray-700">Pilih Donatur</label>
+            <select name="donaturId" id="donaturId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+              <option value="">-- Pilih --</option>
+              @each(donatur in donaturs)
+                <option value="{{ donatur.id }}" {{ donasi?.donaturId === donatur.id ? 'selected' : '' }}>
+                  {{ donatur.nama }}
+                </option>
+              @end
+            </select>
+          </div>
+          <div>
+            <label for="kategoriId" class="block text-sm font-medium text-gray-700">Pilih Kategori</label>
+            <select name="kategoriId" id="kategoriId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+               <option value="">-- Pilih --</option>
+              @each(kategori in kategoris)
+                <option value="{{ kategori.id }}" {{ donasi?.kategoriId === kategori.id ? 'selected' : '' }}>
+                  {{ kategori.namaKategori }}
+                </option>
+              @end
+            </select>
+          </div>
+           <div>
+            <label for="jumlah" class="block text-sm font-medium text-gray-700">Jumlah Donasi</label>
+            <input type="number" name="jumlah" id="jumlah" value="{{ donasi?.jumlah || '' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+          </div>
+          <div>
+            <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal Donasi</label>
+            <input type="date" name="tanggal" id="tanggal" value="{{ donasi?.tanggal.toISODate() || '' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-end space-x-4">
+          <a href="{{ route('admin.donasi.index') }}" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">Batal</a>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

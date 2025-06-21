@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Kategori</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="container mx-auto p-4 sm:p-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Edit Kategori</h1>
+
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+      <form 
+        action="{{ route('admin.kategori.update', { id: kategori.id }) }}?_method=PUT" 
+        method="POST"
+      >
+        {{ csrfField() }}
+        <div class="space-y-6">
+          <div>
+            <label for="namaKategori" class="block text-sm font-medium text-gray-700">Nama Kategori</label>
+            <input 
+              type="text" 
+              name="namaKategori" 
+              id="namaKategori" 
+              value="{{ kategori.namaKategori || '' }}" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
+              required
+            >
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-end space-x-4">
+          <a href="{{ route('admin.kategori.index') }}" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">Batal</a>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+             Update Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
