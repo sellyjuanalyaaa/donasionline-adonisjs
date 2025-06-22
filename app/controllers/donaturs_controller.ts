@@ -64,6 +64,6 @@ export default class DonatursController {
     await donatur.delete()
 
     session.flash({ success: 'Data donatur berhasil dihapus!' })
-    return response.redirect().back()
+    return response.redirect().toRoute('admin.donatur.index')
   }
 }

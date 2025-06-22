@@ -57,7 +57,7 @@
         </div>
         <div>
           <h3 class="text-lg font-medium text-gray-500">Total Donasi Anda</h3>
-          <p class="mt-1 text-3xl font-bold text-gray-800">Rp{{ totalDonasi.toLocaleString('id-ID') }}</p> {{-- Pastikan totalDonasi diformat --}}
+          <p class="mt-1 text-3xl font-bold text-gray-800">Rp{{ totalDonasi.toLocaleString('id-ID') }}</p> 
         </div>
       </div>
     </div>
@@ -106,21 +106,23 @@
             <div class="mt-4 text-xs flex justify-between text-gray-500">
             </div>
 
-            <!-- Progress Bar -->
-            <div class="mt-2">
+           <div class="mt-2">
                 <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div 
-                        class="bg-green-500 h-2.5 rounded-full" 
+                    <div
+                        class="bg-green-500 h-2.5 rounded-full"
                         style="width: {{ Math.min((kampanye.targetDonasi > 0 ? ((kampanye.$extras.terkumpul || 0) / kampanye.targetDonasi) * 100 : 0), 100) }}%">
                     </div>
                 </div>
-                <div class="flex justify-between text-xs mt-1">
+                <div class="flex justify-between items-center text-xs mt-1"> {{-- Menggunakan justify-between dan items-center --}}
                     <span class="font-bold text-green-600">
                         {{ Math.floor((kampanye.targetDonasi > 0 ? ((kampanye.$extras.terkumpul || 0) / kampanye.targetDonasi) * 100 : 0)) }}%
                     </span>
                     <span class="text-gray-500">
-                        Terkumpul: <strong>Rp{{ (kampanye.$extras.terkumpul || 0).toLocaleString('id-ID') }}</strong>
+                        Terkumpul: <strong>Rp{{ Number(kampanye.$extras.terkumpul || 0).toLocaleString('id-ID') }}</strong>
                     </span>
+                </div>
+                <div class="text-xs text-gray-500 text-right mt-1"> 
+                    Target: <strong>Rp{{ Number(kampanye.targetDonasi || 0).toLocaleString('id-ID') }}</strong>
                 </div>
             </div>
 

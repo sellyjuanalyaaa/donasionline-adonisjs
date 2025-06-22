@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import Kategori from '#models/kategori'
-import TransaksiDonasi from '#models/transaksi_donasis' // 1. Impor model TransaksiDonasi
+import TransaksiDonasi from '#models/transaksi_donasis' 
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Kampanye extends BaseModel {
@@ -35,8 +35,6 @@ export default class Kampanye extends BaseModel {
   @belongsTo(() => Kategori)
   public declare kategori: BelongsTo<typeof Kategori>
 
-  // 2. TAMBAHKAN RELASI INI
-  // Ini mendefinisikan bahwa satu Kampanye bisa memiliki banyak TransaksiDonasi.
   @hasMany(() => TransaksiDonasi)
   public declare transaksiDonasis: HasMany<typeof TransaksiDonasi>
 

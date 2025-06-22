@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import Donatur from '#models/donatur'
 import Kampanye from '#models/kampanye'
-import Donasi from '#models/donasi' // 1. Import model Donasi
+import Donasi from '#models/donasi'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class TransaksiDonasis extends BaseModel {
@@ -11,7 +11,7 @@ export default class TransaksiDonasis extends BaseModel {
   @column({ isPrimary: true })
   public declare id: number
   
-  @column({ columnName: 'donasi_id' }) // Pastikan kolom foreign key ada
+  @column({ columnName: 'donasi_id' }) 
   public declare donasiId: number
 
   @column({ columnName: 'kode_transaksi' })
@@ -35,14 +35,10 @@ export default class TransaksiDonasis extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updated_at' })
   public declare updatedAt: DateTime
 
-  // @belongsTo(() => Donatur)
-  // public declare donatur: BelongsTo<typeof Donatur>
 
   @belongsTo(() => Kampanye)
   public declare kampanye: BelongsTo<typeof Kampanye>
   
-  // 2. TAMBAHKAN RELASI INI
-  // Ini mendefinisikan bahwa satu transaksi dimiliki oleh satu data donasi.
   @belongsTo(() => Donasi)
   public declare donasi: BelongsTo<typeof Donasi>
 

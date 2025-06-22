@@ -10,7 +10,7 @@ export default class DonasisController {
    * Menampilkan daftar semua donasi.
    */
  async index({ view }: HttpContext) {
-    const totalSeluruhDonasi = await TransaksiDonasis.query()
+    const totalDonasi = await TransaksiDonasis.query()
       .where('status', 'berhasil')
       .sum('jumlah as total')
     
@@ -26,7 +26,7 @@ export default class DonasisController {
 
     return view.render('pages/admin/donasi_index', { 
       kampanyes,
-      totalSeluruhDonasi: totalSeluruhDonasi[0].total || 0
+      totalDonasi: totalDonasi[0].$extras.total || 0
     })
   }
 

@@ -11,10 +11,6 @@
   <header class="bg-white shadow-sm">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
       <div class="font-bold text-lg">DonasiOnline</div>
-      <div>
-        <a href="{{ route('donatur.dashboard') }}" class="text-sm text-gray-700 hover:text-blue-600">Dashboard</a>
-        <!-- Tambahkan link logout atau profil di sini -->
-      </div>
     </nav>
   </header>
 
@@ -45,7 +41,7 @@
             <tr>
               <td class="px-6 py-4 whitespace-nowrap">{{ transaksi.createdAt.toFormat('dd LLLL yyyy, HH:mm') }}</td>
               <td class="px-6 py-4 whitespace-nowrap font-medium">{{ transaksi.kampanye?.judul || 'N/A' }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">Rp {{ transaksi.jumlah.toLocaleString('id-ID') }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">Rp{{ Number(transaksi.jumlah.toLocaleString('id-ID'))}}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                   {{ transaksi.status === 'berhasil' ? 'bg-green-100 text-green-800' : '' }}

@@ -28,10 +28,7 @@ server.use([
   () => import('@adonisjs/vite/vite_middleware')
 ])
 
-/**
- * The router middleware stack runs middleware on all the HTTP
- * requests with a registered route.
- */
+
 router.use([
   () => import('@adonisjs/core/bodyparser_middleware'),
   () => import('@adonisjs/session/session_middleware'),

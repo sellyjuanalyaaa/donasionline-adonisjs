@@ -1,8 +1,6 @@
 import vine from '@vinejs/vine'
 
-/**
- * Validator untuk membuat dan mengedit kampanye.
- */
+
 export const kampanyeValidator = vine.compile(
   vine.object({
     judul: vine.string().trim().minLength(5),
@@ -17,7 +15,7 @@ export const kampanyeValidator = vine.compile(
     tanggalSelesai: vine.date().after('self.tanggalMulai'),
     status: vine.enum(['aktif', 'selesai', 'ditutup']),
     
-    // Validasi untuk gambar: opsional saat update, wajib saat create
+
     gambar: vine.file({
       size: '2mb',
       extnames: ['jpg', 'png', 'jpeg', 'webp'],

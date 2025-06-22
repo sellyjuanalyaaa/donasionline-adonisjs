@@ -1,14 +1,12 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Kampanye from '#models/kampanye'
 import Donasi from '#models/donasi'
-import TransaksiDonasis from '#models/transaksi_donasis' // Menggunakan nama yang benar: TransaksiDonasis
+import TransaksiDonasis from '#models/transaksi_donasis' 
 import { cuid } from '@adonisjs/core/helpers'
-import { DateTime } from 'luxon' // Diperlukan jika Anda ingin menggunakan DateTime.local() untuk `tanggal`
+import { DateTime } from 'luxon' 
 
 export default class DonasiFormController {
-  /**
-   * Menampilkan form donasi untuk kampanye tertentu.
-   */
+
   async show({ params, view, response, session }: HttpContext) {
     const kampanye = await Kampanye.query()
       .where('id', params.kampanye_id)
@@ -25,28 +23,23 @@ export default class DonasiFormController {
     const isTargetFull = sisaTarget <= 0;
 
     if (isTargetFull) {
-        // Ini adalah flash message jika target sudah 100% saat form dimuat
         session.flash({ info: 'Target donasi untuk kampanye ini sudah tercapai 100%. Terima kasih atas dukungan Anda!' });
-        // Jika Anda ingin langsung redirect ke dashboard ketika target sudah penuh, uncomment baris di bawah:
-        // return response.redirect().toRoute('donatur.dashboard');
     }
 
     return view.render('pages/donatur/donasi_form', {
         kampanye,
         sisaTarget,
-        isTargetFull, // Kirim variabel ini ke view
-        persentaseTerkumpul // Kirim variabel ini untuk progress bar yang akurat
+        isTargetFull, 
+        persentaseTerkumpul 
     });
   }
 
-  /**
-   * Menyimpan donasi baru.
-   */
+
   async store({ request, auth, response, session }: HttpContext) {
     const donatur = auth.use('donatur').user!
     const { jumlah, kampanye_id } = request.only(['jumlah', 'kampanye_id'])
 
-    // Ambil data kampanye lagi untuk validasi di sisi server (penting!)
+    // Ambil data kampanye lagi untuk validasi di sisi server 
     const kampanye = await Kampanye.query()
       .where('id', kampanye_id)
       .withAggregate('transaksiDonasis', (query) => {
